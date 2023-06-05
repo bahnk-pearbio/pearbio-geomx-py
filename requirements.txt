@@ -1,0 +1,7 @@
+anndata
+click
+numpy
+pandas
+pydantic
+rpy2
+xlrd
