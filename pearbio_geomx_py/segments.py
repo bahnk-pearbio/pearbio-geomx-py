@@ -30,6 +30,7 @@ class Segment(BaseModel):
     """Data class for GeoMx sample sheet row."""
 
     Sample_ID: str
+    ROILabel: int
     AOISurfaceArea: float
     AOINucleiCount: int
     RawReads: int
