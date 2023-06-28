@@ -15,7 +15,8 @@ setup(
     install_requires=["click"],
     entry_points={
         "console_scripts": [
-            "extract_counts=pearbio_geomx_py.scripts.extract_counts:main"
+            "extract_counts=pearbio_geomx_py.scripts.extract_counts:main",
+            "gsea_patients=pearbio_geomx_py.scripts.gsea_patients:main",
         ]
     },
 )
