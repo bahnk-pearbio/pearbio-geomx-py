@@ -2,7 +2,9 @@ anndata
 click
 numpy
 pandas
+patsy
 pydantic
 rpy2
+scanpy
 statsmodels
 xlrd

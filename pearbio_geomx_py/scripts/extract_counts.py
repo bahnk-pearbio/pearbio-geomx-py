@@ -1,5 +1,5 @@
 """
-Takes GeoMx `XLSX` results file and converts results to `AnnData` and
+Takes GeoMx `XLSX` result files and converts results to `AnnData` and
 `SummarizedExperiment` objects.
 """
 
@@ -7,8 +7,7 @@ Takes GeoMx `XLSX` results file and converts results to `AnnData` and
 
 import click
 
-from pearbio_geomx_py.segments import GeoMxResultsFile
-
+from pearbio_geomx_py.results import GeoMxResultFiles
 
 # pylint: disable=no-value-for-parameter
 @click.command()
@@ -17,19 +16,24 @@ from pearbio_geomx_py.segments import GeoMxResultsFile
     default="Type,Infiltration",
     help="experimental factors to extract separated by commas",
 )
-@click.argument("excel_file")
+@click.argument("rna_excel_file")
+@click.argument("prot_excel_file")
 @click.argument("base_path")
-def main(exp_factors, excel_file, base_path):
+def main(exp_factors, rna_excel_file, prot_excel_file, base_path):
     """
-    Opens `XLSX` GeoMx results file and extracts segment info and counts.
+    Opens `XLSX` GeoMx results files and extracts segment info and counts.
     Then, saves everything as `AnnData` and `SummarizedExperiment` objects.
     """
-    factors = exp_factors.split(",")
-    results = GeoMxResultsFile(excel_file, factors)
-    adata = results.create_anndata(excel_file, factors)
-    adata.write_h5ad(f"{base_path}.h5ad")
-    results.save_anndata_as_rds(adata, f"{base_path}.rds")
+    geomx = GeoMxResultFiles(
+        rna_path = rna_excel_file,
+        prot_path = prot_excel_file,
+        experimental_factors = exp_factors.split(",")
+    )
 
+    geomx.create_rna_anndata()
+    geomx.create_prot_anndata()
+
+    geomx.save(base_path)
 
 if __name__ == "__main__":
     main()

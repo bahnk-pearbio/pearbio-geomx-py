@@ -5,6 +5,9 @@ PACKAGE=pearbio_geomx_py
 
 all: .FORCE zip
 
+uninstall:
+	python3 -m pip uninstall $(PACKAGE)
+
 install:
 	python3 -m pip install --no-cache-dir .
 
